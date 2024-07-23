@@ -4,24 +4,21 @@ module generator_param #(
 ) (
         input  wire clk,
         input  wire reset,
-        output reg signal
+        output wire signal
 );
-reg [POS_W:0] cnt;
+reg [POS_W-1:0] cnt;
 
 always @(posedge clk) begin
-	if (reset) begin
+	if (reset)
 		cnt <= 0;
-		signal <= 0;
-	end
 	else begin
-		if (cnt == PULSE-1) begin
+		if (cnt == PULSE-1) 
 			cnt <= 0;
-			signal <= 1;
-		end else begin
+		else 
 			cnt <= cnt + 1;	
-			signal <= 0;
-		end
 	end
 end
+
+assign signal = (cnt == PULSE-1);
 
 endmodule
