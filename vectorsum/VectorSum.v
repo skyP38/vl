@@ -6,17 +6,18 @@ module VectorSum #(
     output wire [POS_W:0] sum
 );
 
+wire [POS_W-1:0] temp [DATA_W-1:0];
 
-function [POS_W:0] summa;
-    input [DATA_W-1:0] data;
-    integer i;
-    begin
-	sum = 0;
-    	for (i = 0; i < DATA_W; i = i + 1) begin
-            sum = sum + data[i];
-    	end
-    end
-endfunction
+genvar Gi;
+generate for (Gi = 0; Gi < DATA_W; Gi = Gi + 1)
+begin: loop
+        if (Gi == 0) 
+            assign temp[Gi] = 'h0;
+        else 
+            assign temp[Gi] = temp[Gi - 1] + data[Gi -1];
+end
+endgenerate
 
-assign sum = summa(data);
+assign sum = temp[DATA_W-1];
+
 endmodule
