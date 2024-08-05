@@ -33,11 +33,36 @@ wire res_mark;
 wire res_val;
 reg  exp_sum;
 
-op_an(.op(op1), .op_mark(op_mark1), .mant(mant1));
-op_an(.op(op2), .op_mark(op_mark2), .mant(mant2));
+op_an operator1 (
+    .op(op1), 
+    .op_mark(op_mark1), 
+    .mant(mant1)
+);
+op_an operator2 (
+    .op(op2), 
+    .op_mark(op_mark2), 
+    .mant(mant2)
+);
 
-prev_res(.op1(op1), .op2(op2), .op_mark1(.op_mark1), .op_mark2(op_mark2), .op_sign1(op_sign1), .op_sign2(op_sign2), .opc_mark(opc_mark),  .reg_sign(reg_sign), .exp(exp), .mant(mant), .res_mark(res_mark), .res_val(res_val));
-exp_sum(.op1(op1), .op2(op2), .sum(exp_sum));
+prev_res result (
+    .op1(op1), 
+    .op2(op2), 
+    .op_mark1(.op_mark1), 
+    .op_mark2(op_mark2), 
+    .op_sign1(op_sign1), 
+    .op_sign2(op_sign2), 
+    .opc_mark(opc_mark),  
+    .reg_sign(reg_sign), 
+    .exp(exp), 
+    .mant(mant), 
+    .res_mark(res_mark), 
+    .res_val(res_val)
+);
+exp_sum sum (
+    .op1(op1), 
+    .op2(op2), 
+    .sum(exp_sum)
+);
 
 
 
